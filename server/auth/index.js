@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 function authManager() {
     verify = function (req, res, next) {
         try {
-console.log("start to verify:", req.cookies);
+            console.log("start to verify req cookie:", req.cookies);
             const token = req.cookies.token;
             if (!token) {
                 return res.status(401).json({

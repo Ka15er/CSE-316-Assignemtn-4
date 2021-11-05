@@ -9,6 +9,7 @@ import SplashScreen from './SplashScreen'
 import Statusbar from './Statusbar'
 import Top5Item from './Top5Item'
 import WorkspaceScreen from './WorkspaceScreen'
+import NoticeModal from './NoticeModal'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -26,4 +27,8 @@ export {
     SplashScreen,
     Statusbar, 
     Top5Item, 
-    WorkspaceScreen }
+    WorkspaceScreen,
+    NoticeModal }
+
+
+

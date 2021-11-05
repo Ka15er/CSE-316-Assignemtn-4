@@ -21,10 +21,9 @@ export default function RegisterScreen() {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         if(formData.get('password').length<=8)
-            window.alert("Register password is too short!");
+            window.alert("Your password is too short, please set a longer password!");
         else if(formData.get('password') != formData.get('passwordVerify'))
-            window.alert("Register password does not match!");
-
+            window.alert("Two password are not matched, please check them again!");
         auth.registerUser({
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),

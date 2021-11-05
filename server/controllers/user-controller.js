@@ -3,7 +3,6 @@ const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 
 getLoggedIn = async (req, res) => {
-console.log("login info:", req);
     auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
         return res.status(200).json({
@@ -54,7 +53,6 @@ login = async (req, res) => {
                     errorMessage: "password error."
                 })
         }
-console.log("the login pass:", email, password, existingUser.passwordHash);
 
         // LOGIN THE USER
         const token = auth.signToken(existingUser);
@@ -104,7 +102,7 @@ registerUser = async (req, res) => {
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res
-                .status(400)
+                .status(401)
                 .json({
                     success: false,
                     errorMessage: "An account with this email address already exists."
@@ -121,7 +119,7 @@ registerUser = async (req, res) => {
 
         // LOGIN THE USER
         const token = auth.signToken(savedUser);
-console.log("the register info is:", email, password, salt, passwordHash, token);
+        console.log("the register token is:", token);
 
         await res.cookie("token", token, {
             httpOnly: false,

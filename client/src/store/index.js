@@ -254,17 +254,19 @@ function GlobalStoreContextProvider(props) {
             let top5List = response.data.top5List;
             storeReducer({
                 type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                payload: top5List
+                payload: id
             });
+            store.showDeleteListModal();
         }
     }
 
     store.deleteList = async function (listToDelete) {
-        let response = await api.deleteTop5ListById(listToDelete._id);
+        let response = await api.deleteTop5ListById(listToDelete);
         if (response.data.success) {
             store.loadIdNamePairs();
             history.push("/");
         }
+        store.hideDeleteListModal();
     }
 
     store.deleteMarkedList = function () {
@@ -276,6 +278,16 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
             payload: null
         });
+    }
+
+    store.showDeleteListModal = function() {
+        let modal = document.getElementById("delete-modal");
+        modal.classList.add("is-visible");
+    }
+
+    store.hideDeleteListModal = function() {
+        let modal = document.getElementById("delete-modal");
+        modal.classList.remove("is-visible");
     }
 
     // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING

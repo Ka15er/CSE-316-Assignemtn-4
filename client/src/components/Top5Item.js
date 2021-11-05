@@ -48,7 +48,45 @@ function Top5Item(props) {
         store.addMoveItemTransaction(sourceId, targetId);
     }
 
+    function handleKeyPress(event) {
+        if (event.code === "Enter") {
+            let index = event.target.id.substring("list-".length);
+            let text = event.target.value;
+            store.addUpdateItemTransaction(index-1, text);
+            toggleEdit();
+        }
+    }
+
+    function handleToggleEdit(event) {
+        event.stopPropagation();
+        toggleEdit();
+    }
+
+    function toggleEdit() {
+        let newActive = !editActive;
+        if (newActive) {
+            store.setIsItemEditActive();
+        }
+        setEditActive(newActive);
+    }
+
+    let editStatus = false;
+    if (store.isItemEditActive) {
+        editStatus = true;
+    }
     let { index } = props;
+
+    if (editActive) {
+        return (
+            <input
+                id={"item-" + (index+1)}
+                className='top5-item'
+                type='text'
+                onKeyPress={handleKeyPress}
+                defaultValue={props.text}
+            />)
+    }
+    else {
 
     let itemClass = "top5-item";
     if (draggedTo) {
@@ -82,6 +120,14 @@ function Top5Item(props) {
                     width: '100%'
                 }}
             >
+            <input
+                disabled={editStatus}
+                type="button"
+                id={"edit-item-" + index+1}
+                className="list-card-button"
+                onClick={handleToggleEdit}
+                value={"\u270E"}
+            />
             <Box sx={{ p: 1 }}>
                 <IconButton aria-label='edit'>
                     <EditIcon style={{fontSize:'48pt'}}  />
@@ -89,7 +135,7 @@ function Top5Item(props) {
             </Box>
                 <Box sx={{ p: 1, flexGrow: 1 }}>{props.text}</Box>
             </ListItem>
-    )
+    )}
 }
 
 export default Top5Item;

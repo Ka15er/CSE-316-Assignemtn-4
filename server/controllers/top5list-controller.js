@@ -8,8 +8,12 @@ createTop5List = (req, res) => {
             error: 'You must provide a Top 5 List',
         })
     }
-
-    const top5List = new Top5List(body);
+    
+    const data = { userID: req.userId,
+                   name: body.name,
+                   items: body.items
+                 }
+    const top5List = new Top5List(data);
     console.log("creating top5List: " + JSON.stringify(top5List));
     if (!top5List) {
         return res.status(400).json({ success: false, error: err })
@@ -95,8 +99,9 @@ getTop5ListById = async (req, res) => {
         return res.status(200).json({ success: true, top5List: list })
     }).catch(err => console.log(err))
 }
+
 getTop5Lists = async (req, res) => {
-    await Top5List.find({}, (err, top5Lists) => {
+    await Top5List.find({userID: req.userId}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -108,8 +113,9 @@ getTop5Lists = async (req, res) => {
         return res.status(200).json({ success: true, data: top5Lists })
     }).catch(err => console.log(err))
 }
+
 getTop5ListPairs = async (req, res) => {
-    await Top5List.find({ }, (err, top5Lists) => {
+    await Top5List.find({userID: req.userId}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }

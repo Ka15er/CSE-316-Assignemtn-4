@@ -72,6 +72,8 @@ function AuthContextProvider(props) {
             })
             history.push("/");
             store.loadIdNamePairs();
+        }else if (response.status === 401) {
+            window.alert("the user has been existed, please login");
         }
     }
 

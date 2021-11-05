@@ -71,12 +71,12 @@ export default function LoginScreen() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            Sign in
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/register/" variant="body2">
-                                    Didnot have an account? Register
+                                    Did not have an account? Register
                                 </Link>
                             </Grid>
                         </Grid>

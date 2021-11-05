@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const Top5ListSchema = new Schema(
     {
+        userID: { type: String, required: true },
         name: { type: String, required: true },
         items: { type: [String], required: true }
     },
